@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2563eb" />
+    <title>Question Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <p class="eyebrow">SS-2106 · Bangladesh Studies</p>
+        <h1>Question Tracker</h1>
+        <p>Stay focused, track every answer, and walk into your final prepared.</p>
+      </header>
+
+      <section class="dashboard" aria-label="Progress overview">
+        <article class="progress-card">
+          <div class="progress-copy"><span>Overall progress</span><strong id="completionPercentage">0%</strong></div>
+          <div class="progress-track" aria-hidden="true"><div id="progressBar"></div></div>
+          <p id="progressSummary">0 of 0 questions solved</p>
+        </article>
+        <article class="stat-card"><span>Remaining</span><strong id="remainingCount">0</strong><small>questions to review</small></article>
+        <article class="countdown-card">
+          <span>Exam countdown</span><strong id="countdown">Set a date</strong>
+          <label for="examDate">Exam date <input id="examDate" type="date" /></label>
+        </article>
+      </section>
+
+      <section class="toolbar" aria-label="Question filters">
+        <label class="search"><span class="sr-only">Search questions</span><input id="searchInput" type="search" placeholder="Search questions…" /></label>
+        <label class="filter-label" for="subjectFilter">Subject <select id="subjectFilter"><option value="all">All subjects</option></select></label>
+        <label class="filter-label" for="statusFilter">Status <select id="statusFilter"><option value="all">All questions</option><option value="solved">Solved</option><option value="unsolved">Unsolved</option></select></label>
+        <button id="resetButton" class="reset-button" type="button">Reset progress</button>
+      </section>
+
+      <section aria-live="polite">
+        <p id="resultCount" class="result-count"></p>
+        <div id="questionList" class="question-list"></div>
+        <p id="emptyState" class="empty-state" hidden>No questions match those filters.</p>
+      </section>
+    </main>
+    <template id="questionTemplate">
+      <article class="question-card">
+        <label class="question-toggle"><input type="checkbox" /><span class="custom-checkbox" aria-hidden="true">✓</span><span class="question-text"></span></label>
+        <span class="subject-tag"></span>
+      </article>
+    </template>
+    <script src="app.js"></script>
+  </body>
+</html>
