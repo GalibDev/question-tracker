@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, browserLocalPersistence, setPersistence, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, browserLocalPersistence, setPersistence, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, getDocs, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 import { firebaseConfig } from "./firebase-config.js";
 const ready = Boolean(firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.appId); let auth, db;
@@ -9,7 +9,17 @@ export const firebaseReady = ready;
 export const observeAuth = callback => ready ? authReady.then(() => onAuthStateChanged(auth, callback)) : callback(null);
 export const register = async (email, password) => { await authReady; return createUserWithEmailAndPassword(auth, email, password); };
 export const login = async (email, password) => { await authReady; return signInWithEmailAndPassword(auth, email, password); };
-export const loginWithGoogle = async () => { await authReady; return signInWithRedirect(auth, new GoogleAuthProvider()); };
+export async function loginWithGoogle() {
+  await authReady;
+  const provider = new GoogleAuthProvider();
+  provider.setCustomParameters({ prompt: "select_account" });
+  try {
+    return await signInWithPopup(auth, provider);
+  } catch (error) {
+    if (error.code === "auth/popup-blocked") return signInWithRedirect(auth, provider);
+    throw error;
+  }
+}
 export const googleRedirectResult = async () => { await authReady; return getRedirectResult(auth); };
 export const logout = () => signOut(auth);
 export const saveProfile = user => setDoc(doc(db, "users", user.uid), { email: user.email, updatedAt: serverTimestamp() }, { merge: true });
