@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2563eb" />
+    <title>Admin Dashboard · Question Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="admin-shell">
+      <header class="admin-header"><div><p class="eyebrow">Question Tracker</p><h1>Admin Dashboard</h1><p>Registered students and their study progress.</p></div><a class="primary-button" href="index.html">Back to tracker</a></header>
+      <section id="adminAccess" class="admin-access">Checking administrator access…</section>
+      <section id="adminContent" hidden><div class="admin-stats"><article><span>Registered users</span><strong id="userCount">0</strong></article><article><span>Average progress</span><strong id="averageProgress">0%</strong></article></div><section class="admin-card"><h2>Student progress</h2><div class="admin-table-wrap"><table><thead><tr><th>Email</th><th>Solved</th><th>Total</th><th>Progress</th></tr></thead><tbody id="adminRows"></tbody></table></div></section></section>
+    </main>
+    <script type="module" src="admin.js"></script>
+  </body>
+</html>
