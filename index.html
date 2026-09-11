@@ -10,6 +10,7 @@
   <body>
     <main class="app-shell">
       <header class="hero">
+        <div class="account-bar"><span id="accountStatus">Visitor mode</span><button id="authButton" class="account-button" type="button">Login</button><button id="adminButton" class="account-button" type="button" hidden>Admin panel</button></div>
         <p class="eyebrow">Bangladesh Studies · NITER & MEC</p>
         <h1>Question Tracker</h1>
         <p>Stay focused, track every answer, and walk into your final prepared.</p>
@@ -54,6 +55,8 @@
       </article>
     </template>
     <dialog id="questionDialog"><form id="questionForm"><div class="dialog-heading"><h2 id="dialogTitle">Add question</h2><button type="button" id="closeDialog" class="icon-button">×</button></div><input id="editingId" type="hidden" /><label>Question<textarea id="questionText" required rows="4" placeholder="Type or paste a question"></textarea></label><div class="form-grid"><label>Subject<input id="questionSubject" required placeholder="e.g. Economics" /></label><label>Chapter<input id="questionChapter" placeholder="Optional" /></label><label>Source PDF<input id="questionSource" placeholder="PDF name or study material" /></label><label>Question number<input id="questionNumber" type="number" min="1" placeholder="Optional" /></label></div><p class="form-help">A matching question is detected before saving, so you can avoid duplicate imports.</p><p id="duplicateNotice" class="duplicate-notice" hidden></p><button class="primary-button" type="submit">Save question</button></form></dialog>
-    <script src="app.js"></script>
+    <dialog id="authDialog"><form id="authForm"><div class="dialog-heading"><h2>Login or create account</h2><button type="button" id="closeAuth" class="icon-button">×</button></div><label>Email<input id="authEmail" type="email" required autocomplete="email" /></label><label>Password<input id="authPassword" type="password" required minlength="6" autocomplete="current-password" /></label><p id="authMessage" class="form-help">Sign in to mark questions and sync progress.</p><div class="auth-actions"><button class="primary-button" type="submit">Login</button><button id="registerButton" type="button" class="details-button">Create account</button></div></form></dialog>
+    <dialog id="adminDialog"><section class="admin-panel"><div class="dialog-heading"><h2>Admin panel</h2><button type="button" id="closeAdmin" class="icon-button">×</button></div><p id="adminSummary" class="form-help">Loading users…</p><div class="admin-table-wrap"><table><thead><tr><th>User</th><th>Solved</th><th>Total</th><th>Progress</th></tr></thead><tbody id="adminRows"></tbody></table></div></section></dialog>
+    <script type="module" src="app.js"></script>
   </body>
 </html>
