@@ -12,7 +12,7 @@ The app is ready for Firebase Authentication and Cloud Firestore. To activate it
 2. Enable **Email/Password** under Authentication > Sign-in method.
 3. Create a Firestore database, then paste `firestore.rules` into Firestore > Rules and publish.
 4. Copy your Web app configuration into `firebase-config.js`.
-5. Create your account in the app. In Firestore, create the document `admins/YOUR_UID` (an empty document is enough). Only that account can open the Admin panel.
+5. Create or log in with `polockevan@gmail.com`. That email is the configured admin account and is the only account that can open the Admin panel.
 
 Firebase web configuration is intended for browser use. Never place a Firebase Admin SDK or service-account credential in this repository.
 

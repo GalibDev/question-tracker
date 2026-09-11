@@ -2,9 +2,8 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     function signedIn() { return request.auth != null; }
-    function admin() { return signedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid)); }
+    function admin() { return signedIn() && request.auth.token.email == "polockevan@gmail.com"; }
     match /users/{userId} { allow create, update, get: if signedIn() && request.auth.uid == userId; allow list: if admin(); }
     match /progress/{userId} { allow create, update, get: if signedIn() && request.auth.uid == userId; allow list: if admin(); }
-    match /admins/{userId} { allow get: if signedIn() && request.auth.uid == userId; }
   }
 }

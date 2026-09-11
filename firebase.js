@@ -12,5 +12,5 @@ export const logout = () => signOut(auth);
 export const saveProfile = user => setDoc(doc(db, "users", user.uid), { email: user.email, updatedAt: serverTimestamp() }, { merge: true });
 export async function loadProgress(uid) { const result = await getDoc(doc(db, "progress", uid)); return result.exists() ? result.data().state : null; }
 export const saveProgress = (uid, state) => setDoc(doc(db, "progress", uid), { state, updatedAt: serverTimestamp() });
-export const isAdmin = async uid => (await getDoc(doc(db, "admins", uid))).exists();
+export const isAdmin = user => user?.email === "polockevan@gmail.com";
 export async function adminOverview() { const [users, progress] = await Promise.all([getDocs(collection(db, "users")), getDocs(collection(db, "progress"))]); const states = new Map(progress.docs.map(item => [item.id, item.data().state])); return users.docs.map(item => ({ uid: item.id, ...item.data(), state: states.get(item.id) || {} })); }
