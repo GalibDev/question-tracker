@@ -1,4 +1,4 @@
-import { firebaseReady, observeAuth, register, login, loginWithGoogle, logout, saveProfile, loadProgress, saveProgress, isAdmin, adminOverview } from "./firebase.js";
+import { firebaseReady, observeAuth, register, login, loginWithGoogle, googleRedirectResult, logout, saveProfile, loadProgress, saveProgress, isAdmin, adminOverview } from "./firebase.js";
 
 const subjects = [
   ["History & Society", ["Briefly discuss the Divide and Rule policy of 1947.", "Describe all types of discrimination to East Pakistan during the Pakistan regime.", "Discuss the role of the Language Movement for flourishing Bengali Nationalism.", "How can the Bengali language be promoted and effectively used at all levels of society? Suggest practical guidelines.", "Describe the Education Movement in 1962 (17 September).", "Describe the role of students and women in Liberation War.", "In which sectors did the Z-Force conduct its operations during the Liberation War?", "Write the role of Z-Force in the overall success of the Liberation War.", "The Liberation War was not organized under a single leadership; it was a people's war - explain.", "Write the importance of Maulana Abdul Hamid Khan Bhashani in the political history of Bengal.", "Discuss the role of foreign countries during the Liberation War (USA, China, India, USSR, UK, France and UN)."]],
@@ -57,6 +57,7 @@ studySetFilter.value = state.activeTrack; studySetFilter.addEventListener("chang
 refreshSubjects(); updateDashboard(); render();
 
 const authDialog = document.querySelector("#authDialog"), authButton = document.querySelector("#authButton"), adminButton = document.querySelector("#adminButton");
+if (firebaseReady) googleRedirectResult().catch(error => { const message = error.code === "auth/unauthorized-domain" ? "Google login is blocked: add question-tracker-lac.vercel.app in Firebase Authentication > Settings > Authorized domains." : `Google login failed: ${error.message}`; document.querySelector("#authMessage").textContent = message; authDialog.showModal(); });
 document.querySelector("#closeAuth").addEventListener("click", () => authDialog.close());
 authButton.addEventListener("click", () => { if (currentUser) logout(); else authDialog.showModal(); });
 document.querySelector("#authForm").addEventListener("submit", async event => { event.preventDefault(); if (!firebaseReady) return requireLogin(); try { await login(document.querySelector("#authEmail").value, document.querySelector("#authPassword").value); authDialog.close(); } catch (error) { document.querySelector("#authMessage").textContent = error.message; } });
